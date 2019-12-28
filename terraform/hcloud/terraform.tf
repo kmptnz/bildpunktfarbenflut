@@ -18,13 +18,13 @@ provider "hcloud" {
 }
 resource "hcloud_ssh_key" "default" {
   name       = "key"
-  public_key = "${file("~/.ssh/terra.pub")}"
+  public_key = file("~/.ssh/terra.pub")
 }
 resource "hcloud_server" "node" {
-  count       = "${var.node_count}"
+  count       = var.node_count
   name        = "hcloud-${count.index + 1}"
-  server_type = "${var.node_type}"
-  location    = "${var.location}"
-  image       = "${var.node_image}"
+  server_type = var.node_type
+  location    = var.location
+  image       = var.node_image
   ssh_keys    = ["${hcloud_ssh_key.default.name}"]
 }
