@@ -3,16 +3,6 @@ terraform {
   backend "local" {}
 }
 
-
-#data "terraform_remote_state" "network" {
-#  backend = "s3" 
-#  config = {
-#  bucket = "zeuz-tf-bucket"
-#  key    = "terraform"
-#  region = "eu-central-1"
-#  }
-#}
-# Configure the Hetzner Cloud Provider
 provider "hcloud" {
   token = var.hcloud_token
 }
