@@ -1,0 +1,3 @@
+[submodule "docker/pixelpwnr/pixelpwnr"]
+	path = docker/pixelpwnr/pixelpwnr
+	url = https://github.com/timvisee/pixelpwnr.git

@@ -1,0 +1,26 @@
+---
+- hosts: all
+
+  tasks:
+  vars:
+    packages_group:
+      build-essential:
+        version: latest  
+      libmagick++-dev:
+        version: latest
+      libmagickwand-dev:
+        version: latest  
+      daemonize:
+
+  - name: Git Clone
+    git:
+      repo: 'https://github.com/TobleMiner/sturmflut.git'
+      dest: /srv/sturmflut
+  - name: Make
+    command: make
+    args:
+      chdir: /srv/sturmflut
+  - name: Copy file
+    copy:
+      src: images.jpeg
+      dest: /srv/sturmflut/images.jpeg

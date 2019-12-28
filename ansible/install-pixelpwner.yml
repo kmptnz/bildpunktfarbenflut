@@ -1,0 +1,15 @@
+---
+  - name: Git Clone
+    git:
+      repo: 'https://github.com/timvisee/pixelpwnr.git'
+      dest: /srv/pixelpwner
+
+  - name: Make
+    command: cargo install -f
+    args:
+      chdir: /srv/pixelpwner
+
+  - name: Copy file
+    copy:
+      src: images.jpeg
+      dest: /srv/pixelpwner/images.jpeg

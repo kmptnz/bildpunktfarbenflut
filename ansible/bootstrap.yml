@@ -1,0 +1,6 @@
+- hosts: all
+  roles: 
+   - arillso.ntp
+   - geerlingguy.docker
+   - geerlingguy.pip
+   - lmickh.sysctl

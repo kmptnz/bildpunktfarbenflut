@@ -1,0 +1,5 @@
+plugin: hcloud
+locations:
+  - nbg1
+types:
+  - cx31

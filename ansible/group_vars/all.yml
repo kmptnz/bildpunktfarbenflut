@@ -1,0 +1,15 @@
+skip_reboot: False # if true, skip reboot
+skip_engine: True
+ansible_user: root
+
+packages:
+  - htop
+  - iotop
+  - iftop
+  - tmux
+  - git
+  - ncdu
+  - gnupg2
+  - daemonize
+  - cargo
+

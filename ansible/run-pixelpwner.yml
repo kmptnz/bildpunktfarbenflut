@@ -1,0 +1,45 @@
+---
+- hosts: all
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: Get running processes
+    shell: "ps -ef | grep -v grep | grep -w pixelpwnr | awk '{print $2}'"
+    register: running_processes
+
+  - name: Kill running processes
+    shell: "kill {{ item }}"
+    with_items: "{{ running_processes.stdout_lines }}"
+
+  - wait_for:
+      path: "/proc/{{ item }}/status"
+      state: absent
+    with_items: "{{ running_processes.stdout_lines }}"
+    ignore_errors: yes
+    register: killed_processes
+
+  - name: Force kill stuck processes
+    shell: "kill -9 {{ item }}"
+    with_items: "{{ killed_processes.results | select('failed') | map(attribute='item') | list }}"
+
+  - name: Copy file
+    copy:
+      src: images.jpeg
+      dest: /srv/pixelpwner/images.jpeg
+
+  - name: RUN
+    command: daemonize -c /srv/pixelpwner /srv/pixelpwner/target/release/pixelpwnr 151.217.111.34:1234 -i images.jpeg -x 1100 -y 100 -c=10
+
+  - name: Check if pixelpwnr is runnin
+    shell: pgrep pixelpwnr
+    ignore_errors: yes
+    changed_when: false
+    register: service_pixelpwnr_status
+
+  - name: Report status of pixelpwnr
+    fail:
+      msg: |
+        Service pixelpwnr is not running.
+        Return code from `pgrep`:
+        {{ service_pixelpwnr_status.rc }}
+    when: service_pixelpwnr_status.rc != 0

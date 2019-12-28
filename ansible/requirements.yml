@@ -1,0 +1,4 @@
+- src: geerlingguy.pip
+- src: lmickh.sysctl
+- src: arillso.ntp
+- src: geerlingguy.docker

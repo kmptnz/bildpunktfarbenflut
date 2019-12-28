@@ -1,0 +1,12 @@
+
+version: '3.7'
+
+services:
+  pixelpwnr:
+    build: 
+      context: ./docker/pixelpwnr
+#    image: p
+    volumes:
+      - ./media:/media
+    command: target:1234 -i /media/test1.png -w 100 -h 100
+
