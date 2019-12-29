@@ -10,6 +10,9 @@ export HCLOUD_TOKEN=XXX
 
 ```bash
 cd terraform
+curl -Lo para "https://github.com/paraterraform/para/releases/latest/download/$(curl \
+-L https://github.com/paraterraform/para/releases/latest/download/SHA256SUMS | grep -i $(uname -s) | awk '{ print $2 }')"
+chmod +x para
 terraform init -input=false
 terraform plan -input=false -var-file=pixelflut.tfvars -var=hcloud_token=${HCLOUD_TOKEN}
 terraform apply -input=false -var-file=pixelflut.tfvars -var=hcloud_token=${HCLOUD_TOKEN}
